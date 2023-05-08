@@ -1,3 +1,5 @@
+# 用逻辑回归实现 MNIST 二分类
+
 from sklearn.datasets import fetch_openml
 from sklearn.preprocessing import StandardScaler
 import numpy as np
@@ -9,19 +11,19 @@ def sigmoid(x):
 
 
 # 定义损失函数，用于计算负对数似然
-def neg_log_likelihood(theta, X, y):
+def neg_log_likelihood(theta, x, y):
     theta = theta.reshape(-1, 1)  # 转换为列向量
     y = y.reshape(-1, 1)  # 转换为列向量
-    z = np.dot(X, theta)  # 计算激活值
+    z = np.dot(x, theta)  # 计算激活值
     return np.mean(-y * z + np.log(1 + np.exp(z)))  # 计算损失
 
 
 # 定义梯度函数，用于计算梯度
-def grad(theta, X, y):
+def grad(theta, x, y):
     theta = theta.reshape(-1, 1)  # 转换为列向量
     y = y.reshape(-1, 1)  # 转换为列向量
-    z = np.dot(X, theta)  # 计算激活值
-    return 1 / X.shape[0] * np.dot(X.T, sigmoid(z) - y)  # 计算梯度
+    z = np.dot(x, theta)  # 计算激活值
+    return 1 / x.shape[0] * np.dot(x.T, sigmoid(z) - y)  # 计算梯度
 
 
 # 加载训练数据
